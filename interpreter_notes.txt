@@ -1,0 +1,7 @@
+Following a tutorial to learn about interpreters/compilers: 
+https://ruslanspivak.com/lsbasi-part1/
+
+*Overview*
+-The goal of an interpreter or a compiler is to translate a source program in some high-level language into some other form
+-if a translator translates a source program into machine language, it is a compiler. If a translator processes and executes the source program without translating it into machine language first, it is an interpreter
+-
