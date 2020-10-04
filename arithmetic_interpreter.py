@@ -2,14 +2,15 @@
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, EOF = 'INTEGER', 'PLUS', 'EOF'
+INTEGER, PLUS, MINUS, EOF = 'INTEGER', 'PLUS', 'MINUS', 'EOF'
 
 
 class Token(object):
     def __init__(self, type, value):
         # token type: INTEGER, PLUS, or EOF
+        # adding token MINUS
         self.type = type
-        # token value: 0, 1, 2. 3, 4, 5, 6, 7, 8, 9, '+', or None
+        # token value: 0, 1, 2. 3, 4, 5, 6, 7, 8, 9, '+', '-', or None
         self.value = value
 
     def __str__(self):
@@ -18,6 +19,7 @@ class Token(object):
         Examples:
             Token(INTEGER, 3)
             Token(PLUS '+')
+            Token(MINUS '-')
         """
         return 'Token({type}, {value})'.format(
             type=self.type,
@@ -72,6 +74,12 @@ class Interpreter(object):
             self.pos += 1
             return token
 
+        if current_char == '-':
+            token = Token(MINUS, current_char)
+            self.pos += 1
+            return token 
+
+
         self.error()
 
     def eat(self, token_type):
@@ -95,7 +103,14 @@ class Interpreter(object):
 
         # we expect the current token to be a '+' token
         op = self.current_token
-        self.eat(PLUS)
+        if op.value == '+':
+            self.eat(PLUS)
+        if op.value == '-': 
+            self.eat(MINUS)
+
+        print(f"self.current_token: {op.value}")
+
+        print("this is a fucking test for tabs/spaces errors")
 
         # we expect the current token to be a single-digit integer
         right = self.current_token
@@ -107,7 +122,11 @@ class Interpreter(object):
         # has been successfully found and the method can just
         # return the result of adding two integers, thus
         # effectively interpreting client input
-        result = left.value + right.value
+        if op.value == '+':
+            result = left.value + right.value
+        if op.value == '-':
+            result = left.value -  right.value
+
         return result
 
 
