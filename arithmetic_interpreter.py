@@ -59,21 +59,41 @@ class Interpreter(object):
         # get a character at the position self.pos and decide
         # what token to create based on the single character
         current_char = text[self.pos]
-
+        
+        # INTEGER TOKEN 
         # if the character is a digit then convert it to
         # integer, create an INTEGER token, increment self.pos
         # index to point to the next character after the digit,
         # and return the INTEGER token
         if current_char.isdigit():
-            token = Token(INTEGER, int(current_char))
-            self.pos += 1
+
+            # loop through consecutive digits concatenating them 
+            # to an initially empty string 
+            # once the scanner reaches the final digit convert 
+            # the string to an int
+            string = ''
+            while current_char.isdigit():
+                string += current_char
+
+                if self.pos + 1 <= len(text) - 1 and text[self.pos+1].isdigit():
+                    current_char = text[self.pos+1]
+                else: 
+                    current_char = ''
+                
+                self.pos += 1
+                print(self.pos)
+
+            print(f"operand: {string}")
+            token = Token(INTEGER, int(string))
             return token
 
+        # PLUS TOKEN
         if current_char == '+':
             token = Token(PLUS, current_char)
             self.pos += 1
             return token
 
+        # MINUS TOKEN
         if current_char == '-':
             token = Token(MINUS, current_char)
             self.pos += 1
