@@ -4,4 +4,36 @@ https://ruslanspivak.com/lsbasi-part1/
 *Overview*
 -The goal of an interpreter or a compiler is to translate a source program in some high-level language into some other form
 -if a translator translates a source program into machine language, it is a compiler. If a translator processes and executes the source program without translating it into machine language first, it is an interpreter
--
+-We will build a small python interpreter for arithmetic (plus and minus) calculations
+-our program has two main classes: Token, and Interpreter
+-the Token has properties such as type (INTEGER, PLUS, MINUS, EOF)
+-the Interpreter's props include text, position (in text string), current_token, and current_char
+-Interpreter.expr() is where the parser breaks down our input expression and evaluates it
+
+*Program*
+def main():
+  while True:
+    try:
+      input_text()
+    except: 
+      error()
+  if no_input?: continue
+  
+  interpreter = Interpreter(input_text)
+  result = interpreter.expr() 
+  print(result)
+
+Interpreter.expr():
+ get first token
+ left = current_token
+ eat current token (move to next token)
+ set operator to current_token (e.g. PLUS '+') 
+ eat token
+ set right to current_token
+ evaluate parsed expression (e.g. return left + right)
+ 
+        
+*Concepts*
+- a lexeme is a sequence of characters that form a token
+- the process of recognizing a phrase in the stream of tokens is called parsing
+
